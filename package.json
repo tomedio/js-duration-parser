@@ -1,0 +1,48 @@
+{
+  "name": "js-duration-parser",
+  "version": "1.0.0",
+  "description": "Converter between human readable duration and time units",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "test-coverage": "jest --coverage",
+    "test-watch": "jest --watchAll",
+    "build": "webpack",
+    "docs": "jsdoc2md src/*.js > docs/api.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tomedio/js-duration-parser.git"
+  },
+  "keywords": [
+    "parse",
+    "duration",
+    "time",
+    "parser",
+    "javascript"
+  ],
+  "author": "Tomedio <contact@tomedio.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.22.8",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-private-methods": "^7.22.5",
+    "@babel/preset-env": "^7.12.11",
+    "babel-jest": "^18.0.0",
+    "babel-loader": "^8.0.0-beta.4",
+    "babel-plugin-add-module-exports": "1.0.4",
+    "babel-plugin-transform-class-properties": "6.24.1",
+    "cross-env": "7.0.3",
+    "jest": "^25.0.0",
+    "jsdoc-to-markdown": "^8.0.0",
+    "terser-webpack-plugin": "^5.3.9",
+    "webpack": "^5.88.1",
+    "webpack-cli": "4.2.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.js?$": "babel-jest"
+    }
+  }
+}
