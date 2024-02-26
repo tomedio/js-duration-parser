@@ -1,8 +1,13 @@
 {
   "name": "js-duration-parser",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Converter between human readable duration and time units",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "jest",
     "test-coverage": "jest --coverage",
