@@ -1,6 +1,6 @@
 {
   "name": "js-duration-parser",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Converter between human readable duration and time units",
   "main": "./dist/index.js",
   "scripts": {

@@ -32,11 +32,11 @@ You can use duration parser to parse human-like duration string or to generate i
 Duration string can be build using groups, separated by spaces, eg. `2d 30m 10s`, Every group consists of number and time unit.
 
 Possible time units (for 'en' locale):
-* `s` = seconds;
-* `m` = minutes;
-* `h` = hours;
-* `d` = days;
-* `w` = weeks.
+* `s` = **s**econds;
+* `m` = **m**inutes;
+* `h` = **h**ours;
+* `d` = **d**ays;
+* `w` = **w**eeks.
 
 In duration string you don't need to specify group with 0 number. So, value `2h 0m 30s` is syntactically correct but unnecessary.
 
@@ -55,6 +55,11 @@ durationParser.parse('1w2d5h', 'h'); // 221h
 `parse` method takes two arguments:
 * required duration string;
 * optional time unit for which should be calculated the duration; default unit is `m`.
+
+**Watch-out!** String with a single numeric value can be parsed as a number of given time units:
+```javascript
+durationParser.parse(' 12 ', 's'); // 12s
+```
 
 ### Generation
 ```javascript
@@ -75,11 +80,11 @@ durationParser.compose(221, 'h', ''); // 1w2d5h
 `en` locale is available and enabled in the library as default. You can consider to use it in almost all cases. However, if you want to use time identifiers for your own language, it's possible.
 
 Below is an example how 'pl' locale is added. Polish mapping is as follows:
-* `s` = seconds (sekundy);
-* `m` = minutes (minuty);
-* `g` = hours (godziny);
-* `d` = days (dni);
-* `t` = weeks (tygodnie).
+* `s` = seconds (**s**ekundy);
+* `m` = minutes (**m**inuty);
+* `g` = hours (**g**odziny);
+* `d` = days (**d**ni);
+* `t` = weeks (**t**ygodnie).
 
 Second argument of `DurationParser` class constructor is a custom `TimeIdentifiers` object. It contains all time identifiers mapped for all supported locales. If it's not passed, then default one with only `en` support is used.
 
@@ -129,6 +134,8 @@ const durationValidator = new DurationValidator(timeIdentifiers);
 durationValidator.validate('2h 30m'); // true
 durationValidator.validate('11x 12s'); // false
 ```
+
+**Watch-out!** String with a single numeric value (eg. ` 12  `) is valid, but more numbers separated by space (eg. ` 12  1`) is invalid.
 
 ## Translation
 Using this library you can translate duration string from one locale to another, eg. '2h 30ms 10s' (en) to '2g 30ms 10s' (pl).

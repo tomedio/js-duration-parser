@@ -45,9 +45,12 @@ class DurationParser {
    * @param {string} targetUnit Identifier of target time unit
    * @returns {number|null}
    */
-  parse(input: string, targetUnit: string = 'm'): number | null {
+  parse(input: string, targetUnit: string = 'm'): number|null {
     if (!input) {
-      return null;
+      return 0;
+    }
+    if (input.trim().match(/^\d+$/) !== null) {
+      return parseInt(input.trim())
     }
     const timeGroups = this.#timeGroups.extractTimeGroups(input, this.#locale);
     if (timeGroups.length === 0) {

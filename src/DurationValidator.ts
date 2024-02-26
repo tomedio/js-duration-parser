@@ -22,7 +22,7 @@ class DurationValidator {
    * @returns {boolean}
    */
   validate(duration: string, locale = 'en') {
-    return duration.length > 0 && this.#timeGroups.extractTimeGroups(duration, locale).length;
+    return duration.length > 0 && (duration.trim().match(/^\d+$/) !== null || this.#timeGroups.extractTimeGroups(duration, locale).length);
   }
 }
 

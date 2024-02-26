@@ -4,7 +4,7 @@ import {parse} from "@babel/core";
 
 describe('parse()', () => {
   test('duration is parsed correctly for \'en\' locale', () => {
-    const durationParser = new DurationParser();
+    const durationParser = new DurationParser('en');
 
     const testCases = [
       [' 1d 30m12s  ', 's', '88212'],
@@ -22,8 +22,18 @@ describe('parse()', () => {
   });
 
   test('duration is parsed using default target unit', () => {
-    const durationParser = new DurationParser('en');
+    const durationParser = new DurationParser();
     expect(durationParser.parse('10m')).toBe(10);
+  });
+
+  test('numeric duration is parsed as it is', () => {
+    const durationParser = new DurationParser('en');
+    expect(durationParser.parse(' 14  ', 's')).toBe(14);
+  });
+
+  test('numeric duration with spaces is parsed as null', () => {
+    const durationParser = new DurationParser('en');
+    expect(durationParser.parse(' 14 1 ', 's')).toBeNull();
   });
 
   test('zero duration is parsed as 0', () => {
@@ -31,9 +41,9 @@ describe('parse()', () => {
     expect(durationParser.parse('0m', 's')).toBe(0);
   });
 
-  test('empty duration is parsed as null', () => {
+  test('empty duration is parsed as 0', () => {
     const durationParser = new DurationParser('en');
-    expect(durationParser.parse('', 's')).toBeNull();
+    expect(durationParser.parse('', 's')).toBe(0);
   });
 
   test('invalid duration is parsed as null', () => {

@@ -35,3 +35,8 @@ test('validator validates duration using \'pl\' locale', () => {
   expect(durationValidator.validate('2g 3m', 'pl')).toBeTruthy();
   expect(durationValidator.validate('2a 3m', 'pl')).toBeFalsy();
 });
+
+test('validator validates correct numeric duration', () => {
+  const durationValidator = new DurationValidator();
+  expect(durationValidator.validate(' 13  ')).toBeTruthy();
+});
