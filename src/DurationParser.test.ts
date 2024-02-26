@@ -29,6 +29,7 @@ describe('parse()', () => {
   test('numeric duration is parsed as it is', () => {
     const durationParser = new DurationParser('en');
     expect(durationParser.parse(' 14  ', 's')).toBe(14);
+    expect(durationParser.parse('25', 's')).toBe(25);
   });
 
   test('numeric duration with spaces is parsed as null', () => {

@@ -1,6 +1,6 @@
 {
   "name": "js-duration-parser",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Converter between human readable duration and time units",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.es.js",
@@ -13,6 +13,7 @@
     "test-coverage": "jest --coverage",
     "test-watch": "jest --watchAll",
     "build": "tsc && vite build",
+    "build:version": "npm test && npm run build && npm version patch --git-tag-version false",
     "docs": "jsdoc2md src/*.js > docs/api.md"
   },
   "repository": {

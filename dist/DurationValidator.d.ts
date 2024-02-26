@@ -15,6 +15,6 @@ declare class DurationValidator {
      * @param {string} locale Locale name which is used in duration string
      * @returns {boolean}
      */
-    validate(duration: string, locale?: string): any;
+    validate(duration: string, locale?: string): boolean;
 }
 export default DurationValidator;

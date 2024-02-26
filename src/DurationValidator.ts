@@ -21,8 +21,10 @@ class DurationValidator {
    * @param {string} locale Locale name which is used in duration string
    * @returns {boolean}
    */
-  validate(duration: string, locale = 'en') {
-    return duration.length > 0 && (duration.trim().match(/^\d+$/) !== null || this.#timeGroups.extractTimeGroups(duration, locale).length);
+  validate(duration: string, locale: string = 'en'): boolean {
+    return Boolean(
+        duration.length > 0 && (duration.trim().match(/^\d+$/) !== null || this.#timeGroups.extractTimeGroups(duration, locale).length)
+    );
   }
 }
 

@@ -17,9 +17,9 @@ declare class DurationParser {
     /**
      * Create duration string from time amount
      *
-     * @param time Input time amount expressed in source time unit
-     * @param sourceUnit Source time unit identifier
-     * @param groupSeparator Group separator used to join time groups in output duration string
+     * @param {number} time Input time amount expressed in source time unit
+     * @param {string} sourceUnit Source time unit identifier
+     * @param {string} groupSeparator Group separator used to join time groups in output duration string
      * @returns {string}
      */
     compose(time: number, sourceUnit?: string, groupSeparator?: string): string;
