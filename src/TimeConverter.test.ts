@@ -13,7 +13,8 @@ test('time is converted correctly for supported units', () => {
   ];
 
   for (const index in testCases) {
-    expect(timeConverter.convert(...testCases[index])).toBe(testCases[index][3]);
+    const [time, sourceUnit, targetUnit, convertedResult] = testCases[index]
+    expect(timeConverter.convert(+time, `${sourceUnit}`, `${targetUnit}`)).toBe(convertedResult);
   }
 });
 

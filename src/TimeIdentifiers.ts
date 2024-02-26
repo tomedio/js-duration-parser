@@ -1,3 +1,5 @@
+import {TimeIdentifiersGroup} from "./TimeIdentifiers.types";
+
 /**
  * Manage time identifiers used in duration string. This class allows to use time identifiers from many languages.
  */
@@ -19,7 +21,7 @@ class TimeIdentifiers {
    * @param newIdentifiers New time identifiers
    * @returns {TimeIdentifiers}
    */
-  add(locale, newIdentifiers) {
+  add(locale: string, newIdentifiers): TimeIdentifiers {
     this.#identifiers[locale] = newIdentifiers;
     return this;
   }
@@ -28,9 +30,9 @@ class TimeIdentifiers {
    * Return time identifiers for the given locale name; if not registered, return identifiers for 'en' locale
    *
    * @param {string} locale Locale name
-   * @returns {{s: string, d: string, w: string, h: string, m: string}}
+   * @returns {TimeIdentifiersGroup}
    */
-  get(locale) {
+  get(locale: string): TimeIdentifiersGroup {
     return this.#identifiers[locale] ?? this.#identifiers.en;
   }
 
@@ -41,7 +43,7 @@ class TimeIdentifiers {
    * @param {string} locale Locale name
    * @returns {string|null}
    */
-  getInternalUnit(identifier, locale) {
+  getInternalUnit(identifier: string, locale: string): string | null {
     const usedIdentifiers = this.get(locale);
     for (const originalIdentifier in usedIdentifiers) {
       if (usedIdentifiers[originalIdentifier] === identifier) {

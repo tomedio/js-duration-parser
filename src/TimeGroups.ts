@@ -1,4 +1,5 @@
 import TimeIdentifiers from "./TimeIdentifiers";
+import {TimeGroup} from "./TimeGroups.types";
 
 /**
  * Manage time groups and make some operations on them.
@@ -10,7 +11,7 @@ class TimeGroups {
   /**
    * @param {TimeIdentifiers|null} timeIdentifiers
    */
-  constructor(timeIdentifiers = null) {
+  constructor(timeIdentifiers: TimeIdentifiers|null = null) {
     this.#timeIdentifiers = timeIdentifiers ?? new TimeIdentifiers();
   }
 
@@ -21,7 +22,7 @@ class TimeGroups {
    * @param {string} locale Locale name of time identifiers used in duration string
    * @returns {string[]}
    */
-  extractTimeGroups(duration, locale) {
+  extractTimeGroups(duration: string, locale: string): string[] {
     const usedIdentifiers = this.#timeIdentifiers.get(locale);
     const stringRegex = `^(\\d+${usedIdentifiers.w})?\\s*(\\d+${usedIdentifiers.d})?\\s*(\\d+${usedIdentifiers.h})?\\s*(\\d+${usedIdentifiers.m})?\\s*(\\d+${usedIdentifiers.s})?$`;
     const regex = new RegExp(stringRegex);
@@ -37,9 +38,9 @@ class TimeGroups {
    *
    * @param {string} timeGroup Single time group
    * @param {string} locale Locale name of time unit used in time group
-   * @returns {{unit: *, time: number}|null}
+   * @returns {TimeGroup|null}
    */
-  parseTimeGroup(timeGroup, locale) {
+  parseTimeGroup(timeGroup: string, locale: string): TimeGroup|null {
     const usedIdentifiers = this.#timeIdentifiers.get(locale);
     const stringRegex = `^(\\d+)\\s*([${usedIdentifiers.w}${usedIdentifiers.d}${usedIdentifiers.h}${usedIdentifiers.m}${usedIdentifiers.s}])$`;
     const regex = new RegExp(stringRegex);
@@ -57,10 +58,10 @@ class TimeGroups {
   /**
    * Build a single time group from object created while parsing a group
    *
-   * @param {{unit: *, time: number}} parsedTime Object of parsed time group
+   * @param {TimeGroup} parsedTime Object of parsed time group
    * @returns {string}
    */
-  buildTimeGroup(parsedTime) {
+  buildTimeGroup(parsedTime: TimeGroup): string {
     if (typeof parsedTime.time === 'undefined' || typeof parsedTime.unit === 'undefined') {
       throw new Error('Wrong input object is passed');
     }
@@ -74,7 +75,7 @@ class TimeGroups {
    * @param {string} groupSeparator Separator between every group in output duration string
    * @returns {string}
    */
-  composeDuration(timeGroups, groupSeparator = ' ') {
+  composeDuration(timeGroups: string[], groupSeparator: string = ' '): string {
     return timeGroups.join(groupSeparator);
   }
 }

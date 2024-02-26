@@ -6,21 +6,21 @@ class DurationTranslator {
 
   /* istanbul ignore next */
   /**
-   * @param {TimeIdentifiers|null} timeIdentifiers
+   * @param {TimeIdentifiers} timeIdentifiers
    */
-  constructor(timeIdentifiers = new TimeIdentifiers()) {
+  constructor(timeIdentifiers: TimeIdentifiers = new TimeIdentifiers()) {
     this.#timeIdentifiers = timeIdentifiers;
   }
 
   /**
    * Translate duration string from source to target locale
    *
-   * @param duration Input duration string
-   * @param sourceLocale Source locale name
-   * @param targetLocale Target locale name
-   * @returns {string|null}
+   * @param {string} duration Input duration string
+   * @param {string} sourceLocale Source locale name
+   * @param {string} targetLocale Target locale name
+   * @returns {string}
    */
-  translate(duration, sourceLocale, targetLocale) {
+  translate(duration: string, sourceLocale: string, targetLocale: string): string {
     const sourceDurationParser = new DurationParser(sourceLocale, this.#timeIdentifiers);
     const targetDurationParser = new DurationParser(targetLocale, this.#timeIdentifiers);
     const parsedSource = sourceDurationParser.parse(duration, 's');

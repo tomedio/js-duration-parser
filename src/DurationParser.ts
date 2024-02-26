@@ -15,7 +15,7 @@ class DurationParser {
    * @param {string} locale Locale used for parsing duration
    * @param {TimeIdentifiers|null} customTimeIdentifiers Custom TimeIdentifiers object with added localized identifiers
    */
-  constructor(locale = 'en', customTimeIdentifiers = null) {
+  constructor(locale: string = 'en', customTimeIdentifiers: TimeIdentifiers|null = null) {
     this.#locale = locale;
     this.#timeConverter = new TimeConverter();
     this.#timeIdentifiers = customTimeIdentifiers ?? new TimeIdentifiers();
@@ -29,7 +29,7 @@ class DurationParser {
    * @param {string} targetUnit Target time unit expressed in 'en' locale
    * @returns {number}
    */
-  #convertTimeGroup(timeGroup, targetUnit) {
+  #convertTimeGroup(timeGroup: string, targetUnit: string): number {
     const parsedGroup = this.#timeGroups.parseTimeGroup(timeGroup, this.#locale);
     return this.#timeConverter.convert(
       parsedGroup.time,
@@ -42,10 +42,10 @@ class DurationParser {
    * Return duration length from input expressed in target units
    *
    * @param {string} input Input duration string expressed in human-like pattern
-   * @param targetUnit Identifier of target time unit
+   * @param {string} targetUnit Identifier of target time unit
    * @returns {number|null}
    */
-  parse(input, targetUnit = 'm') {
+  parse(input: string, targetUnit: string = 'm'): number | null {
     if (!input) {
       return null;
     }
@@ -63,14 +63,14 @@ class DurationParser {
   /**
    * Create duration string from time amount
    *
-   * @param time input time amount expressed in source time unit
+   * @param time Input time amount expressed in source time unit
    * @param sourceUnit Source time unit identifier
    * @param groupSeparator Group separator used to join time groups in output duration string
-   * @returns {string|null}
+   * @returns {string}
    */
-  compose(time, sourceUnit = 'm', groupSeparator = ' ') {
+  compose(time: number, sourceUnit: string = 'm', groupSeparator: string = ' '): string {
     if (!time) {
-      return null;
+      return `0${sourceUnit}`;
     }
     const usedIdentifiers = this.#timeIdentifiers.get(this.#locale);
     const orderedInternalUnits = ['w', 'd', 'h', 'm', 's'];

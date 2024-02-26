@@ -2,7 +2,7 @@
  * Allow time conversion between units
  */
 class TimeConverter {
-  #convertionMatrix = {
+  #conversionMatrix = {
     's=>s': 1,
     'm=>s': 60,
     'h=>s': 60 * 60,
@@ -38,9 +38,9 @@ class TimeConverter {
    * @param {string} targetUnit Target time unit
    * @returns {number}
    */
-  convert(time, sourceUnit, targetUnit) {
+  convert(time: number, sourceUnit: string, targetUnit: string): number {
     const conversion = `${sourceUnit}=>${targetUnit}`;
-    const factor = this.#convertionMatrix[conversion] ?? null;
+    const factor = this.#conversionMatrix[conversion] ?? null;
     if (factor === null) {
       throw new Error(`Conversion ${conversion} is not supported!`);
     }

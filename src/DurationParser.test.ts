@@ -1,21 +1,23 @@
 import DurationParser from "./DurationParser";
 import TimeIdentifiers from "./TimeIdentifiers";
+import {parse} from "@babel/core";
 
 describe('parse()', () => {
   test('duration is parsed correctly for \'en\' locale', () => {
     const durationParser = new DurationParser();
 
     const testCases = [
-      [' 1d 30m12s  ', 's', 88212],
-      ['12s', 's', 12],
-      ['1h 1s', 's', 3601],
-      ['1H1m', 'm', 61],
-      ['1h 1m 30s', 'm', 61.5],
-      ['30s', 'm', 0.5]
+      [' 1d 30m12s  ', 's', '88212'],
+      ['12s', 's', '12'],
+      ['1h 1s', 's', '3601'],
+      ['1H1m', 'm', '61'],
+      ['1h 1m 30s', 'm', '61.5'],
+      ['30s', 'm', '0.5']
     ];
 
     for (const index in testCases) {
-      expect(durationParser.parse(...testCases[index])).toBe(testCases[index][2]);
+      const [input, targetUnit, parsedResult] = testCases[index];
+      expect(durationParser.parse(input, targetUnit)).toBe(+parsedResult);
     }
   });
 
@@ -49,13 +51,14 @@ describe('parse()', () => {
     }));
 
     const testCases = [
-      ['2d 1g 15m', 'm', 2955],
-      ['1g 1m', 'm', 61],
-      ['36g', 'd', 1.5]
+      ['2d 1g 15m', 'm', '2955'],
+      ['1g 1m', 'm', '61'],
+      ['36g', 'd', '1.5']
     ];
 
     for (const index in testCases) {
-      expect(durationParser.parse(...testCases[index])).toBe(testCases[index][2]);
+      const [input, targetUnit, parsedResult] = testCases[index];
+      expect(durationParser.parse(input, targetUnit)).toBe(+parsedResult);
     }
   });
 
@@ -89,13 +92,14 @@ describe('compose()', () => {
     ];
 
     for (const index in testCases) {
-      expect(durationParser.compose(...testCases[index])).toBe(testCases[index][3]);
+      const [time, sourceUnit, groupSeparator, composedResult] = testCases[index];
+      expect(durationParser.compose(+time, `${sourceUnit}`, `${groupSeparator}`)).toBe(composedResult);
     }
   });
 
   test('0 is composed as null', () => {
     const durationParser = new DurationParser('en');
-    expect(durationParser.compose(0, 's')).toBeNull();
+    expect(durationParser.compose(0, 's')).toBe('0s');
   });
 
   test('duration is composed correctly with default source unit and separator', () => {

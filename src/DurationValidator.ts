@@ -10,7 +10,7 @@ class DurationValidator {
   /**
    * @param {TimeIdentifiers|null} timeIdentifiers
    */
-  constructor(timeIdentifiers = null) {
+  constructor(timeIdentifiers: TimeIdentifiers|null = null) {
     this.#timeGroups = new TimeGroups(timeIdentifiers ?? new TimeIdentifiers());
   }
 
@@ -21,7 +21,7 @@ class DurationValidator {
    * @param {string} locale Locale name which is used in duration string
    * @returns {boolean}
    */
-  validate(duration, locale = 'en') {
+  validate(duration: string, locale = 'en') {
     return duration.length > 0 && this.#timeGroups.extractTimeGroups(duration, locale).length;
   }
 }

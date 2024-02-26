@@ -1,5 +1,6 @@
 import TimeGroups from "./TimeGroups";
 import TimeIdentifiers from "./TimeIdentifiers";
+import {TimeGroup} from "./TimeGroups.types";
 
 const timeIdentifiers = new TimeIdentifiers();
 
@@ -16,7 +17,8 @@ describe('extractTimeGroups()', () => {
     const locale = 'en';
 
     for (const index in testCases) {
-      expect(timeGroups.extractTimeGroups(testCases[index][0], locale)).toStrictEqual(testCases[index][1]);
+      const [duration, extractedGroup] = testCases[index]
+      expect(timeGroups.extractTimeGroups(`${duration}`, locale)).toStrictEqual(extractedGroup);
     }
   });
 
@@ -58,7 +60,9 @@ describe('parseTimeGroup()', () => {
     const locale = 'en';
 
     for (const index in testCases) {
-      expect(timeGroups.parseTimeGroup(testCases[index][0], locale)).toStrictEqual(testCases[index][1]);
+      const timeGroup: string = testCases[index][0] as string
+      const parsedTime: TimeGroup = testCases[index][1] as TimeGroup
+      expect(timeGroups.parseTimeGroup(timeGroup, locale)).toStrictEqual(parsedTime);
     }
   });
 
@@ -81,10 +85,11 @@ describe('buildTimeGroup()', () => {
       [{time: 2, unit: 'd'}, '2d'],
       [{time: 2, unit: ' d '}, '2d'],
     ];
-    const locale = 'en';
 
     for (const index in testCases) {
-      expect(timeGroups.buildTimeGroup(testCases[index][0], locale)).toBe(testCases[index][1]);
+      const parsedTime: TimeGroup = testCases[index][0] as TimeGroup
+      const timeGroup: string = testCases[index][1] as string
+      expect(timeGroups.buildTimeGroup(parsedTime)).toBe(timeGroup);
     }
   });
 
